@@ -1,0 +1,103 @@
+// 父子组件之间通信
+
+import React, { Component, Fragment } from 'react'
+
+class InputName extends Component {
+	constructor(props) {
+		super(props)
+		this.state = {
+			name: '',
+			id: '0',
+		}
+	}
+
+	render() {
+		return (
+			<Fragment>
+				<label htmlFor="inputName">姓名</label>
+				<input
+					id="inputName"
+					value={this.state.name}
+					onChange={this.change}
+					type="text"
+				/>
+				<button onClick={this.add}> 添加</button>
+			</Fragment>
+		)
+	}
+
+	add = () => {
+		this.props.addItem(this.state.name)
+		this.setState({
+			name: '',
+		})
+	}
+
+	change = (e) => {
+		console.log(e.target.value)
+		this.setState({
+			name: e.target.value,
+		})
+	}
+}
+
+class List extends Component {
+	constructor(props) {
+		super(props)
+	}
+
+	render() {
+		const { list } = this.props
+		return (
+			<ul>
+				{list.map((item, index) => {
+					return <li key={item.id}> {item.name}</li>
+				})}
+			</ul>
+		)
+	}
+}
+
+class Test extends Component {
+	constructor(props) {
+		super(props)
+		this.state = {
+			list: [
+				{
+					id: 1,
+					name: 'one',
+				},
+				{
+					id: 2,
+					name: 'two',
+				},
+				{
+					id: 3,
+					name: 'three',
+				},
+			],
+		}
+	}
+
+	render() {
+		return (
+			<Fragment>
+				<InputName addItem={this.add}></InputName>
+				<List list={this.state.list}></List>
+			</Fragment>
+		)
+	}
+
+	add = (title) => {
+		let arr = this.state.list
+		arr.push({
+			id: arr.length,
+			name: title,
+		})
+		this.setState({
+			list: arr,
+		})
+	}
+}
+
+export default Test
