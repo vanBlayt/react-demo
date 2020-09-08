@@ -1,6 +1,7 @@
 // 父子组件之间通信
 
-import React, { Component, Fragment } from 'react'
+
+import React, { Component, PureComponent, Fragment, memo } from 'react'
 
 class InputName extends Component {
 	constructor(props) {
@@ -34,7 +35,6 @@ class InputName extends Component {
 	}
 
 	change = (e) => {
-		console.log(e.target.value)
 		this.setState({
 			name: e.target.value,
 		})
@@ -57,6 +57,13 @@ class List extends Component {
 		)
 	}
 }
+
+function Footer(props) {
+	console.log('updated')
+	return <div>this is footer</div>
+}
+
+Footer = memo(Footer)
 
 class Test extends Component {
 	constructor(props) {
@@ -84,6 +91,7 @@ class Test extends Component {
 			<Fragment>
 				<InputName addItem={this.add}></InputName>
 				<List list={this.state.list}></List>
+				<Footer></Footer>
 			</Fragment>
 		)
 	}
@@ -91,7 +99,7 @@ class Test extends Component {
 	add = (title) => {
 		let arr = this.state.list
 		arr.push({
-			id: arr.length,
+			id: arr.length + 1,
 			name: title,
 		})
 		this.setState({
@@ -101,3 +109,4 @@ class Test extends Component {
 }
 
 export default Test
+
