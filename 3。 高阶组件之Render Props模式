@@ -1,0 +1,46 @@
+render props 是在不重复代码的情况下，共享组件间功能的模式
+
+import React, { Component, Fragment } from 'react'
+
+class Mouse extends Component {
+	constructor(props) {
+		super(props)
+		this.state = {
+			x: 0,
+			y: 0,
+		}
+	}
+	render() {
+		return (
+			<div style={{ height: '500px' }} onMouseMove={this.mouseMove}>
+				{this.props.render(this.state)}
+			</div>
+		)
+	}
+
+	mouseMove = (e) => {
+		console.log(e.clientX)
+		this.setState({
+			x: e.clientX,
+			y: e.clientY,
+		})
+	}
+}
+
+class Test extends Component {
+	render() {
+		return (
+			<div>
+				<Mouse
+					render={({ x, y }) => (
+						<h1>
+							传进来x: {x},y: {y}
+						</h1>
+					)}
+				></Mouse>
+			</div>
+		)
+	}
+}
+
+export default Test
