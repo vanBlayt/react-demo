@@ -1,0 +1,15 @@
+1. componentShouldUpdate
+  在父组件数据更新时候，所有的子组件都会重新渲染，即使子组件中使用的数据没有发生变化，以此造成性能消耗
+  所以在componentShouldUpdate中可以传入两个参数 nextProps 与 nextState 来比较当前使用的数据与即将发生的数据是否有变化
+  也可以使用loadsh函数库中的函数进行深度比较（非常浪费性能）
+  
+ 2.pureComponent 与 memo
+  pureCompoennt 适用于class组件，在数据发生变化时进行一个浅比较
+  memo适用于 函数组件，同样进行浅比较
+ 
+ 
+ 3. immutable.js 进行性能优化
+ 
+ 4.防抖节流
+ 
+ 5.懒加载
