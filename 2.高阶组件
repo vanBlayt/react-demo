@@ -1,0 +1,27 @@
+//将重复的业务逻辑封装，在withFactory中在传入的组件上将这种业务添加上去
+
+import React, { Component } from 'react'
+
+const withFactory = (Mycomponent) => {
+	class withReduceComponent extends Component {
+		render() {
+			return <Mycomponent name="van" {...this.props}></Mycomponent>
+		}
+	}
+	return withReduceComponent
+}
+
+class Test extends Component {
+	render() {
+		console.log(this.props)
+		const { name, age } = this.props
+		return (
+			<div>
+				{name}---{age}
+        {/* 此处的age 变量实在index 根目录调用此处组件时传进来的prop*/}
+			</div>
+		)
+	}
+}
+
+export default withFactory(Test)
