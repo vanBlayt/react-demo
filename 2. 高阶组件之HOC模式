@@ -1,5 +1,7 @@
 //将重复的业务逻辑封装，在withFactory中在传入的组件上将这种业务添加上去
 
+
+//hoc模式
 import React, { Component } from 'react'
 
 const withFactory = (Mycomponent) => {
